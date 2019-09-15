@@ -28,7 +28,7 @@ SECRET_KEY = 'h&qtmbv=7w-prp9w=&mdkxf@%&epoa@jl_)metg9#++xg(7r0u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tvish.herokuapp.com']
 
 
 # Application definition
@@ -177,15 +177,15 @@ CMS_PLACEHOLDER_CONF = {}
 
 DATABASES = {
     'default': {
-        'CONN_MAX_AGE': 0,
         'ENGINE': 'django.db.backends.sqlite3',
-        'HOST': 'localhost',
-        'NAME': 'project.db',
-        'PASSWORD': '',
-        'PORT': '',
-        'USER': ''
+        'NAME': os.path.join(BASE_DIR, 'project.db'),
     }
 }
+
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+DATABASES['default']['CONN_MAX_AGE'] = 500
 
 MIGRATION_MODULES = {
     
